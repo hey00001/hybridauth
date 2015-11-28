@@ -6,8 +6,8 @@
 class Hybrid_Providers_DigitalOcean extends Hybrid_Provider_Model_OAuth2
 {
 	// default permissions
-	// (no scope) => public read-only access (includes public user profile info, public repo info, and gists).
-	public $scope = "api";
+	// (read write) => Grants read/write access to user account, i.e. full access. This allows actions that can be requested using the DELETE, PUT, and POST methods, in addition to the actions allowed by the read scope.
+	public $scope = "read write";
 
 	/**
 	* IDp wrappers initializer
