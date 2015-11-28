@@ -101,7 +101,7 @@ class Hybrid_Providers_DigitalOcean extends Hybrid_Provider_Model_OAuth2
 	{
 		$data = $this->api->api( "v2/account" );
 
-		if ( ! isset( $data->id ) ){
+		if ( ! isset( $data->uuid ) ){
 			throw new Exception( "User profile request failed! {$this->providerId} returned an invalid response.", 6 );
 		}
 
