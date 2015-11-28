@@ -17,7 +17,7 @@ class Hybrid_Providers_DigitalOcean extends Hybrid_Provider_Model_OAuth2
 		parent::initialize();
 
 		// Provider api end-points
-		$this->api->api_base_url  = "https://cloud.digitalocean.com";
+		$this->api->api_base_url  = "https://cloud.digitalocean.com/";
 		$this->api->authorize_url = "https://cloud.digitalocean.com/v1/oauth/authorize";
 		$this->api->token_url     = "https://cloud.digitalocean.com/v1/oauth/token";
 		// Override the redirect uri when it's set in the config parameters. This way we prevent
@@ -99,6 +99,9 @@ class Hybrid_Providers_DigitalOcean extends Hybrid_Provider_Model_OAuth2
 	*/
 	function getUserProfile()
 	{
+		// refresh tokens if needed
+		$this->refreshToken();
+
 		$data = $this->api->api( "v2/account" );
 
 		if ( ! isset( $data->uuid ) ){
