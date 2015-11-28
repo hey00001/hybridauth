@@ -25,10 +25,10 @@ class Hybrid_Providers_DigitalOcean extends Hybrid_Provider_Model_OAuth2
 		if (isset($this->config['redirect_uri']) && !empty($this->config['redirect_uri'])) {
 			$this->api->redirect_uri = $this->config['redirect_uri'];
 		}
-    if (isset($this->config['scope'])) {
+    if (isset($this->config['scope']) and !empty($this->config['scope'])) {
       $this->scope = $this->config['scope'];
     }
-    if (isset($this->config['state'])) {
+    if (isset($this->config['state']) and !empty($this->config['state'])) {
       $this->state = $this->config['state'];
     }
 	}
