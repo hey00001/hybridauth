@@ -31,6 +31,10 @@ class Hybrid_Providers_DigitalOcean extends Hybrid_Provider_Model_OAuth2
     if (isset($this->config['state']) and !empty($this->config['state'])) {
       $this->state = $this->config['state'];
     }
+		if( $this->token( "access_token" ) ){
+			$this->api->curl_header[] = 'Authorization: Bearer ' . $this->token( "access_token" );
+      $this->api->curl_header[] = 'Content-Type: application/json';
+		}
 	}
 
   /**
@@ -92,20 +96,6 @@ class Hybrid_Providers_DigitalOcean extends Hybrid_Provider_Model_OAuth2
       {
 	throw new Exception('Authentication failed! CSRF state token does not match the one provided.');
       }
-  }
-
-  /**
-   * set propper headers before posting
-   */
-  function post($url) {
-    $this->api->curl_header =
-      array(
-	    'Authorization: Bearer ' . $this->api->access_token,
-	    'Content-Type: application/json',
-	    'Accept: application/json',
-	    );
-    $response = $this->api->post($url);
-    return $response;
   }
 
 	/**
