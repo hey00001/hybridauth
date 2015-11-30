@@ -94,6 +94,20 @@ class Hybrid_Providers_DigitalOcean extends Hybrid_Provider_Model_OAuth2
       }
   }
 
+  /**
+   * set propper headers before posting
+   */
+  function post($url) {
+    $this->api->curl_header =
+      array(
+	    'Authorization: Bearer ' . $this->api->access_token,
+	    'Content-Type: application/x-www-form-urlencoded',
+	    'Accept: application/json',
+	    );
+    $response = $this->api->post($url);
+    return $response;
+  }
+
 	/**
 	* load the user profile from the IDp api client
 	*/
