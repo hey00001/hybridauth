@@ -108,20 +108,20 @@ class Hybrid_Providers_DigitalOcean extends Hybrid_Provider_Model_OAuth2
 
 		$data = $this->api->api( "v2/account" );
 
-		if ( ! isset( $data->uuid ) ){
+		if ( ! isset( $data->account->uuid ) ){
 			throw new Exception( "User profile request failed! {$this->providerId} returned an invalid response.", 6 );
 		}
 
-		$this->user->profile->identifier  = @ $data->uuid;
-		$this->user->profile->displayName = @ $data->email; // No display name value from the API so we use email
-		$this->user->profile->email       = @ $data->email;
-		$this->user->profile->region      = @ $data->location;
+		$this->user->profile->identifier  = @ $data->account->uuid;
+		$this->user->profile->displayName = @ $data->account->email; // No display name value from the API so we use email
+		$this->user->profile->email       = @ $data->account->email;
+		$this->user->profile->region      = @ $data->account->location;
 
     // Digital ocean returns a flag marking the email as verified or not
     // We compare this to the email in use and set the emailVerified
     // value accodringly.
-    if (isset($data->email_verified) and TRUE == $data->email_verified and $data->email == $data->email_verified) {
-      $this->user->profile->emailVerified = $data->email;
+    if (isset($data->account->email_verified) and TRUE == $data->account->email_verified and $data->account->email == $data->account->email_verified) {
+      $this->user->profile->emailVerified = $data->account->email;
     }
 
 		return $this->user->profile;
